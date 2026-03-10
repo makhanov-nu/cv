@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nursultan Makhanov | PhD in Computer Science</title>
+  <meta name="description" content="Nursultan Makhanov - PhD researcher specializing in Federated Learning, Medical Image Classification, and Computer Vision.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a26;
+      --accent: #6c63ff;
+      --accent-light: #8b83ff;
+      --accent-glow: rgba(108, 99, 255, 0.15);
+      --text: #e4e4ec;
+      --text-dim: #8888a0;
+      --text-bright: #ffffff;
+      --border: #1e1e2e;
+      --gradient-1: #6c63ff;
+      --gradient-2: #e05fc4;
+      --gradient-3: #f7971e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); background: rgba(10, 10, 15, 0.95); }
+    nav .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .logo {
+      font-size: 1.1rem; font-weight: 700; color: var(--text-bright);
+      text-decoration: none; letter-spacing: -0.02em;
+    }
+    nav .logo span { color: var(--accent); }
+    nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+    nav .nav-links a {
+      color: var(--text-dim); text-decoration: none; font-size: 0.88rem;
+      font-weight: 500; transition: color 0.3s; letter-spacing: 0.02em;
+    }
+    nav .nav-links a:hover { color: var(--text-bright); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span {
+      display: block; width: 22px; height: 2px; background: var(--text);
+      margin: 5px 0; transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      position: relative; padding: 6rem 2rem 4rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; overflow: hidden; z-index: 0;
+    }
+    .hero-bg .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero-bg .orb:nth-child(1) {
+      width: 500px; height: 500px; top: -10%; left: -10%;
+      background: var(--gradient-1); animation-delay: 0s;
+    }
+    .hero-bg .orb:nth-child(2) {
+      width: 400px; height: 400px; bottom: -5%; right: -5%;
+      background: var(--gradient-2); animation-delay: -3s;
+    }
+    .hero-bg .orb:nth-child(3) {
+      width: 300px; height: 300px; top: 40%; left: 50%;
+      background: var(--gradient-3); animation-delay: -5s; opacity: 0.15;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 15px) scale(0.95); }
+    }
+    .hero-content {
+      position: relative; z-index: 1; text-align: center; max-width: 800px;
+    }
+    .hero-badge {
+      display: inline-block; padding: 0.4rem 1.2rem; border-radius: 100px;
+      background: var(--accent-glow); border: 1px solid rgba(108, 99, 255, 0.3);
+      color: var(--accent-light); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800;
+      color: var(--text-bright); line-height: 1.15; margin-bottom: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem; color: var(--text-dim); max-width: 600px;
+      margin: 0 auto 2.5rem; line-height: 1.8;
+    }
+    .hero-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem; border-radius: 10px; font-size: 0.9rem;
+      font-weight: 600; text-decoration: none; transition: all 0.3s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      color: #fff; box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(108, 99, 255, 0.45); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent-light); background: var(--accent-glow); }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800;
+      color: var(--text-bright); margin-bottom: 3rem; letter-spacing: -0.02em;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-text p { margin-bottom: 1rem; color: var(--text-dim); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem; text-align: center;
+      transition: all 0.3s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); background: var(--bg-card-hover); }
+    .stat-number {
+      font-size: 2rem; font-weight: 800; margin-bottom: 0.3rem;
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-dim); font-weight: 500; }
+
+    /* ── EXPERIENCE TIMELINE ── */
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--accent), var(--gradient-2), transparent);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 2.5rem; padding: 1.8rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; transition: all 0.3s;
+    }
+    .timeline-item:hover { border-color: var(--accent); transform: translateX(6px); background: var(--bg-card-hover); }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2.85rem; top: 2rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+    .timeline-title { font-size: 1.1rem; font-weight: 700; color: var(--text-bright); }
+    .timeline-date {
+      font-size: 0.78rem; font-weight: 600; color: var(--accent);
+      background: var(--accent-glow); padding: 0.25rem 0.8rem;
+      border-radius: 100px; white-space: nowrap;
+    }
+    .timeline-org { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.6rem; font-style: italic; }
+    .timeline-item ul { list-style: none; }
+    .timeline-item li {
+      position: relative; padding-left: 1.2rem; margin-bottom: 0.4rem;
+      font-size: 0.9rem; color: var(--text-dim);
+    }
+    .timeline-item li::before {
+      content: ''; position: absolute; left: 0; top: 0.6em;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: grid; gap: 1.5rem; }
+    .edu-card {
+      display: grid; grid-template-columns: auto 1fr; gap: 1.5rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; transition: all 0.3s;
+    }
+    .edu-card:hover { border-color: var(--accent); transform: translateY(-4px); background: var(--bg-card-hover); }
+    .edu-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--accent-glow); display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+    }
+    .edu-degree { font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.2rem; }
+    .edu-school { font-size: 0.9rem; color: var(--accent-light); margin-bottom: 0.3rem; }
+    .edu-year { font-size: 0.82rem; color: var(--text-dim); }
+    .edu-detail { font-size: 0.88rem; color: var(--text-dim); margin-top: 0.5rem; line-height: 1.6; }
+
+    /* ── RESEARCH ── */
+    .research-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .research-card:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+    .research-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+    }
+    .research-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-bright); margin-bottom: 1rem; }
+    .research-card ul { list-style: none; }
+    .research-card li {
+      position: relative; padding-left: 1.4rem; margin-bottom: 0.7rem;
+      font-size: 0.92rem; color: var(--text-dim);
+    }
+    .research-card li::before {
+      content: ''; position: absolute; left: 0; top: 0.55em;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+    }
+    .research-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .research-tag {
+      padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.78rem;
+      font-weight: 600; background: var(--accent-glow); color: var(--accent-light);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+    }
+
+    /* ── SKILLS ── */
+    .skills-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .skill-group h3 {
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 1rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .skill-tag {
+      padding: 0.55rem 1.1rem; border-radius: 10px; font-size: 0.88rem;
+      font-weight: 600; background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); transition: all 0.3s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent-light); background: var(--accent-glow); transform: translateY(-2px); }
+    .lang-grid { display: grid; gap: 0.8rem; }
+    .lang-item { display: flex; align-items: center; gap: 1rem; }
+    .lang-name { font-size: 0.9rem; font-weight: 600; color: var(--text); min-width: 80px; }
+    .lang-bar { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .lang-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+    }
+    .lang-level { font-size: 0.78rem; color: var(--text-dim); min-width: 60px; text-align: right; }
+
+    /* ── CONTACT ── */
+    .contact-section { text-align: center; }
+    .contact-section p { color: var(--text-dim); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1.05rem; }
+    .contact-cards { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.8rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 14px; text-decoration: none; transition: all 0.3s;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-4px); background: var(--bg-card-hover); }
+    .contact-card .icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--accent-glow); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .contact-card .icon svg { width: 20px; height: 20px; color: var(--accent-light); }
+    .contact-card .label { font-size: 0.78rem; color: var(--text-dim); }
+    .contact-card .value { font-size: 0.92rem; font-weight: 600; color: var(--text-bright); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text-dim);
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FUN FACT ── */
+    .fun-fact {
+      margin-top: 2rem; padding: 1.5rem 2rem;
+      background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(224,95,196,0.08));
+      border: 1px solid rgba(108,99,255,0.15); border-radius: 14px;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .fun-fact-icon { font-size: 2rem; }
+    .fun-fact p { font-size: 0.92rem; color: var(--text-dim); }
+    .fun-fact strong { color: var(--text-bright); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-wrapper { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      nav .nav-links.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.98);
+        padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+        gap: 1rem;
+      }
+      .hamburger { display: block; }
+      .edu-card { grid-template-columns: 1fr; }
+      .edu-icon { width: 44px; height: 44px; font-size: 1.2rem; }
+      .timeline { padding-left: 2rem; }
+      .timeline-item::before { left: -2.35rem; }
+      .contact-cards { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">N<span>.</span>Makhanov</a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">PhD in Computer Science</div>
+    <h1>Nursultan <span class="gradient-text">Makhanov</span></h1>
+    <p>Researcher specializing in Federated Learning, Medical Image Classification, and Computer Vision.</p>
+    <div class="hero-links">
+      <a href="https://scholar.google.com/citations?hl=en&user=7ULoTGEAAAAJ" target="_blank" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Google Scholar
+      </a>
+      <a href="https://www.linkedin.com/in/nursultan-makhanov-a145872b/" target="_blank" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Contact
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Bridging AI &amp; Healthcare</h2>
+        <p>I am a researcher with a PhD in Computer Science from Nazarbayev University. My work focuses on applying Federated Learning to medical image classification, enabling privacy-preserving AI in healthcare.</p>
+        <p>Currently a Visiting Scholar at Queen's University Belfast and Senior Research Scientist at Astana IT University, I explore the intersection of Business, Healthcare, and Artificial Intelligence.</p>
+        <p>Beyond research, I have extensive teaching experience and a passion for mentoring the next generation of AI researchers.</p>
+        <div class="fun-fact">
+          <div class="fun-fact-icon">🥋</div>
+          <p><strong>Brown belt in Brazilian Jiu-Jitsu</strong> &mdash; discipline on and off the mat.</p>
+        </div>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-number">PhD</div>
+          <div class="stat-label">Computer Science</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$60K</div>
+          <div class="stat-label">Research Grant Won</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Years in Research</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">450+</div>
+          <div class="stat-label">Students Taught</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background: rgba(18, 18, 26, 0.4);">
+  <div class="section-inner">
+    <span class="section-label reveal">Career</span>
+    <h2 class="section-title reveal">Work Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Visiting Scholar</div>
+            <div class="timeline-org">Queen's University Belfast, UK</div>
+          </div>
+          <span class="timeline-date">Jan 2025 &ndash; Present</span>
+        </div>
+        <ul>
+          <li>Research in the intersection of Business, Healthcare, and AI</li>
+          <li>Publishing papers in respected conference venues</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Senior Research Scientist</div>
+            <div class="timeline-org">Astana IT University, Astana</div>
+          </div>
+          <span class="timeline-date">Jan 2025 &ndash; Present</span>
+        </div>
+        <ul>
+          <li>Breast Cancer research with ultrasound images (Grant #BR24993145-OT-24)</li>
+          <li>Federated Learning in Face Recognition (Grant #BR24992852-OT-24)</li>
+          <li>Won $60,000 grant from Ministry of Education of Kazakhstan (Grant #AP22686020)</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Assistant Professor</div>
+            <div class="timeline-org">Astana IT University, Astana</div>
+          </div>
+          <span class="timeline-date">Aug 2025 &ndash; Jan 2026</span>
+        </div>
+        <ul>
+          <li>Developed and taught postgraduate course &ldquo;Introduction to AI&rdquo;</li>
+          <li>Supervised 3 Masters students on Small Language Models &amp; Federated Learning</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Senior Researcher at R&amp;D</div>
+            <div class="timeline-org">Qalan Inc, Almaty</div>
+          </div>
+          <span class="timeline-date">Jul 2025 &ndash; Feb 2026</span>
+        </div>
+        <ul>
+          <li>Data preparation (Math QA in Kazakh) for LLMs</li>
+          <li>Fine-tuning Large Language Models</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Middle CV Engineer</div>
+            <div class="timeline-org">Nception Labs, Almaty</div>
+          </div>
+          <span class="timeline-date">Mar 2024 &ndash; Dec 2024</span>
+        </div>
+        <ul>
+          <li>Trained and deployed Face Detection/Recognition pipeline</li>
+          <li>Research on Federated Learning in Face Recognition</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Research Assistant</div>
+            <div class="timeline-org">Nazarbayev University, Astana</div>
+          </div>
+          <span class="timeline-date">Sep 2022 &ndash; 2024</span>
+        </div>
+        <ul>
+          <li>Few-Shot Learning for Medical Imaging Classification</li>
+          <li>Federated Learning for Human Action Recognition</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Graduate Teaching Assistant</div>
+            <div class="timeline-org">Nazarbayev University, Astana</div>
+          </div>
+          <span class="timeline-date">Sep 2020 &ndash; May 2023</span>
+        </div>
+        <ul>
+          <li>Algorithms &amp; Data Structures (250 students)</li>
+          <li>Programming Fundamentals (200 students)</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title">Senior Lecturer</div>
+            <div class="timeline-org">International IT University, Almaty</div>
+          </div>
+          <span class="timeline-date">Jun 2017 &ndash; Aug 2019</span>
+        </div>
+        <ul>
+          <li>OS, Intro to Programming, Cryptography, and Network Security</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <span class="section-label reveal">Education</span>
+    <h2 class="section-title reveal">Academic Background</h2>
+    <div class="edu-grid">
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-degree">PhD in Computer Science</div>
+          <div class="edu-school">Nazarbayev University</div>
+          <div class="edu-year">Aug 2019 &ndash; Jun 2025</div>
+          <div class="edu-detail">Thesis: Integrating Position-Aware Neurons in Deep Learning Models for Effective Federated Medical Image Classification.</div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">🔐</div>
+        <div>
+          <div class="edu-degree">Masters in Cybersecurity</div>
+          <div class="edu-school">George Washington University</div>
+          <div class="edu-year">Jan 2016 &ndash; May 2017</div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">💻</div>
+        <div>
+          <div class="edu-degree">Bachelors in Information Systems</div>
+          <div class="edu-school">International IT University</div>
+          <div class="edu-year">Sep 2009 &ndash; Jun 2013</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" style="background: rgba(18, 18, 26, 0.4);">
+  <div class="section-inner">
+    <span class="section-label reveal">Research</span>
+    <h2 class="section-title reveal">Research Focus</h2>
+    <div class="research-card reveal">
+      <h3>Medical Image Classification with Federated Learning</h3>
+      <ul>
+        <li>Gathered 1200+ CT lung images from the 12th Hospital in Almaty</li>
+        <li>Applied Computer Vision in Federated Learning to medical images</li>
+        <li>Worked with CheXpert and MIMIC-CXR &mdash; the largest X-ray datasets</li>
+        <li>Few-shot and self-supervised learning in federated scenarios</li>
+        <li>Breast Cancer detection with ultrasound images</li>
+        <li>Federated Learning for Face Recognition</li>
+      </ul>
+      <div class="research-tags">
+        <span class="research-tag">Federated Learning</span>
+        <span class="research-tag">Medical Imaging</span>
+        <span class="research-tag">Computer Vision</span>
+        <span class="research-tag">Few-Shot Learning</span>
+        <span class="research-tag">Self-Supervised Learning</span>
+        <span class="research-tag">Face Recognition</span>
+        <span class="research-tag">LLMs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-label reveal">Skills</span>
+    <h2 class="section-title reveal">Technical &amp; Soft Skills</h2>
+    <div class="skills-wrapper">
+
+      <div class="skill-group reveal">
+        <h3>Programming &amp; Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">LaTeX</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <h3>Languages</h3>
+        <div class="lang-grid">
+          <div class="lang-item">
+            <span class="lang-name">Kazakh</span>
+            <div class="lang-bar"><div class="lang-fill" style="width: 100%"></div></div>
+            <span class="lang-level">Native</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <div class="lang-bar"><div class="lang-fill" style="width: 90%"></div></div>
+            <span class="lang-level">Fluent</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">Russian</span>
+            <div class="lang-bar"><div class="lang-fill" style="width: 90%"></div></div>
+            <span class="lang-level">Fluent</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: rgba(18, 18, 26, 0.4);">
+  <div class="section-inner contact-section">
+    <span class="section-label reveal">Contact</span>
+    <h2 class="section-title reveal">Let's Connect</h2>
+    <p class="reveal">Open to research collaborations, speaking invitations, and academic opportunities.</p>
+    <div class="contact-cards reveal">
+
+      <div class="contact-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </div>
+        <div>
+          <div class="label">Email</div>
+          <div class="value">n.makhanov [at] qub [dot] ac [dot] uk</div>
+        </div>
+      </div>
+
+      <a href="https://www.linkedin.com/in/nursultan-makhanov-a145872b/" target="_blank" class="contact-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <div class="label">LinkedIn</div>
+          <div class="value">Nursultan Makhanov</div>
+        </div>
+      </a>
+
+      <a href="https://scholar.google.com/citations?hl=en&user=7ULoTGEAAAAJ" target="_blank" class="contact-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div>
+          <div class="label">Google Scholar</div>
+          <div class="value">Publications</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Nursultan Makhanov. Built with passion.</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
