@@ -9,19 +9,47 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0a0a0f;
-      --bg-card: #12121a;
-      --bg-card-hover: #1a1a26;
+      --bg: #1a1b2e;
+      --bg-card: #222340;
+      --bg-card-hover: #2a2b4a;
       --accent: #6c63ff;
       --accent-light: #8b83ff;
       --accent-glow: rgba(108, 99, 255, 0.15);
       --text: #e4e4ec;
-      --text-dim: #8888a0;
+      --text-dim: #9a9ab8;
       --text-bright: #ffffff;
-      --border: #1e1e2e;
+      --border: #2e2f4d;
       --gradient-1: #6c63ff;
       --gradient-2: #e05fc4;
       --gradient-3: #f7971e;
+      --nav-bg: rgba(26, 27, 46, 0.8);
+      --nav-bg-solid: rgba(26, 27, 46, 0.95);
+      --nav-mobile: rgba(26, 27, 46, 0.98);
+      --section-alt: rgba(30, 31, 52, 0.5);
+      --orb-opacity: 0.35;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f5fa;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0f0f8;
+      --accent: #5b52e0;
+      --accent-light: #5b52e0;
+      --accent-glow: rgba(91, 82, 224, 0.1);
+      --text: #3a3a52;
+      --text-dim: #6b6b88;
+      --text-bright: #1a1a2e;
+      --border: #e0e0ee;
+      --gradient-1: #6c63ff;
+      --gradient-2: #e05fc4;
+      --gradient-3: #f7971e;
+      --nav-bg: rgba(245, 245, 250, 0.85);
+      --nav-bg-solid: rgba(245, 245, 250, 0.97);
+      --nav-mobile: rgba(245, 245, 250, 0.98);
+      --section-alt: rgba(230, 230, 242, 0.5);
+      --orb-opacity: 0.15;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     html { scroll-behavior: smooth; }
@@ -32,18 +60,19 @@
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
     }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1rem 2rem;
-      background: rgba(10, 10, 15, 0.8);
+      background: var(--nav-bg);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s, background 0.3s;
     }
-    nav.scrolled { border-bottom-color: var(--border); background: rgba(10, 10, 15, 0.95); }
+    nav.scrolled { border-bottom-color: var(--border); background: var(--nav-bg-solid); }
     nav .nav-inner {
       max-width: 1100px; margin: 0 auto;
       display: flex; justify-content: space-between; align-items: center;
@@ -59,6 +88,22 @@
       font-weight: 500; transition: color 0.3s; letter-spacing: 0.02em;
     }
     nav .nav-links a:hover { color: var(--text-bright); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .theme-toggle {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 50%;
+      width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: all 0.3s; color: #1a1a2e; flex-shrink: 0;
+    }
+    [data-theme="light"] .theme-toggle {
+      background: #1a1a2e; color: #ffffff; border-color: #1a1a2e;
+    }
+    .theme-toggle:hover { border-color: var(--accent); transform: scale(1.1); }
+    .theme-toggle svg { width: 18px; height: 18px; transition: transform 0.3s; }
+    .theme-toggle:hover svg { transform: rotate(20deg); }
+    .theme-toggle .icon-sun { display: block; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
     .hamburger span {
       display: block; width: 22px; height: 2px; background: var(--text);
@@ -74,7 +119,7 @@
       position: absolute; inset: 0; overflow: hidden; z-index: 0;
     }
     .hero-bg .orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: var(--orb-opacity);
       animation: float 8s ease-in-out infinite;
     }
     .hero-bg .orb:nth-child(1) {
@@ -137,7 +182,8 @@
     .btn svg { width: 18px; height: 18px; }
 
     /* ── SECTIONS ── */
-    section { padding: 5rem 2rem; }
+    section { padding: 5rem 2rem; transition: background 0.4s; }
+    .section-alt { background: var(--section-alt); }
     .section-inner { max-width: 1000px; margin: 0 auto; }
     .section-label {
       display: inline-block; font-size: 0.78rem; font-weight: 700;
@@ -324,7 +370,7 @@
       nav .nav-links { display: none; }
       nav .nav-links.open {
         display: flex; flex-direction: column; position: absolute;
-        top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.98);
+        top: 100%; left: 0; right: 0; background: var(--nav-mobile);
         padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
         gap: 1rem;
       }
@@ -343,9 +389,6 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="logo">N<span>.</span>Makhanov</a>
-    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -354,6 +397,15 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -423,7 +475,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" style="background: rgba(18, 18, 26, 0.4);">
+<section id="experience" class="section-alt">
   <div class="section-inner">
     <span class="section-label reveal">Career</span>
     <h2 class="section-title reveal">Work Experience</h2>
@@ -585,7 +637,7 @@
 </section>
 
 <!-- RESEARCH -->
-<section id="research" style="background: rgba(18, 18, 26, 0.4);">
+<section id="research" class="section-alt">
   <div class="section-inner">
     <span class="section-label reveal">Research</span>
     <h2 class="section-title reveal">Research Focus</h2>
@@ -657,7 +709,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background: rgba(18, 18, 26, 0.4);">
+<section id="contact" class="section-alt">
   <div class="section-inner contact-section">
     <span class="section-label reveal">Contact</span>
     <h2 class="section-title reveal">Let's Connect</h2>
@@ -703,6 +755,22 @@
 </footer>
 
 <script>
+  // Theme toggle
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // Load saved theme (default: dark)
+  (function() {
+    const saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+
   // Navbar scroll effect
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
